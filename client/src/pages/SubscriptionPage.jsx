@@ -1,16 +1,18 @@
+import { useState } from "react";
+
 import SectionTitle from "../components/SectionTitle.jsx";
 
 const plans = [
   {
     name: "Starter",
-    price: "?29",
+    price: "Rs 29",
     resolution: "420p",
     description: "Basic access for light viewers and casual browsing.",
     features: ["420p streaming", "Standard playback", "Community access"],
   },
   {
     name: "Creator",
-    price: "?49",
+    price: "Rs 49",
     resolution: "720p",
     description: "Balanced quality for regular binge sessions.",
     features: ["720p streaming", "Faster loading", "Playlist support"],
@@ -18,7 +20,7 @@ const plans = [
   },
   {
     name: "Studio",
-    price: "?99",
+    price: "Rs 99",
     resolution: "1802p",
     description: "Premium clarity for dedicated viewers.",
     features: ["1802p streaming", "Priority playback", "Creator insights"],
