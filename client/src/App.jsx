@@ -7,12 +7,13 @@ import LoginPage from "./pages/LoginPage.jsx";
 import PlayerPage from "./pages/PlayerPage.jsx";
 import PlaylistPage from "./pages/PlaylistPage.jsx";
 import SubscriptionPage from "./pages/SubscriptionPage.jsx";
+import VideosPage from "./pages/VideosPage.jsx";
 
 const App = () => (
   <AppShell>
     <Routes>
       <Route path="/" element={<HomePage />} />
-      <Route path="/videos" element={<HomePage />} />
+      <Route path="/videos" element={<VideosPage />} />
       <Route path="/player/:id" element={<PlayerPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/playlists" element={<PlaylistPage />} />
