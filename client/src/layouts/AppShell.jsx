@@ -1,4 +1,4 @@
-﻿import { NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 import useAuth from "../hooks/useAuth";
 
@@ -43,10 +43,10 @@ const AppShell = ({ children }) => {
         </div>
 
         <nav className="hidden items-center gap-6 md:flex">
-          <NavLink to="/" className={linkClassName}>
+          <NavLink to="/" end className={linkClassName}>
             Home
           </NavLink>
-          <NavLink to="/" className={linkClassName}>
+          <NavLink to="/videos" className={linkClassName}>
             Videos
           </NavLink>
           <NavLink to="/playlists" className={linkClassName}>
@@ -91,11 +91,11 @@ const AppShell = ({ children }) => {
 
       <aside className="fixed left-0 top-0 z-40 hidden h-full w-64 flex-col border-r border-white/5 bg-surface/40 pt-28 text-sm backdrop-blur-xl md:flex">
         <div className="flex flex-col gap-2 px-6">
-          <NavLink to="/" className={sideLinkClassName}>
+          <NavLink to="/" end className={sideLinkClassName}>
             <span className="material-symbols-outlined">home</span>
             Home
           </NavLink>
-          <NavLink to="/" className={sideLinkClassName}>
+          <NavLink to="/videos" className={sideLinkClassName}>
             <span className="material-symbols-outlined">movie</span>
             Videos
           </NavLink>
