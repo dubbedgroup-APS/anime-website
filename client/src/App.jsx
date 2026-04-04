@@ -12,6 +12,7 @@ const App = () => (
   <AppShell>
     <Routes>
       <Route path="/" element={<HomePage />} />
+      <Route path="/videos" element={<HomePage />} />
       <Route path="/player/:id" element={<PlayerPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/playlists" element={<PlaylistPage />} />
