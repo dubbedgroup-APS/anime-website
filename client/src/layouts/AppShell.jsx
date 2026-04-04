@@ -52,6 +52,9 @@ const AppShell = ({ children }) => {
           <NavLink to="/playlists" className={linkClassName}>
             Playlist
           </NavLink>
+          <NavLink to="/subscriptions" className={linkClassName}>
+            Subscription
+          </NavLink>
           <NavLink to="/account" className={linkClassName}>
             Account
           </NavLink>
@@ -99,6 +102,10 @@ const AppShell = ({ children }) => {
           <NavLink to="/playlists" className={sideLinkClassName}>
             <span className="material-symbols-outlined">subscriptions</span>
             Playlist
+          </NavLink>
+          <NavLink to="/subscriptions" className={sideLinkClassName}>
+            <span className="material-symbols-outlined">workspace_premium</span>
+            Subscription
           </NavLink>
           <NavLink to="/account" className={sideLinkClassName}>
             <span className="material-symbols-outlined">person</span>

@@ -6,6 +6,7 @@ import HomePage from "./pages/HomePage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
 import PlayerPage from "./pages/PlayerPage.jsx";
 import PlaylistPage from "./pages/PlaylistPage.jsx";
+import SubscriptionPage from "./pages/SubscriptionPage.jsx";
 
 const App = () => (
   <AppShell>
@@ -15,6 +16,7 @@ const App = () => (
       <Route path="/login" element={<LoginPage />} />
       <Route path="/playlists" element={<PlaylistPage />} />
       <Route path="/account" element={<AccountPage />} />
+      <Route path="/subscriptions" element={<SubscriptionPage />} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   </AppShell>
