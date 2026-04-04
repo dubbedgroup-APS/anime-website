@@ -1,4 +1,4 @@
-﻿import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const formatNumber = (value) => new Intl.NumberFormat().format(value || 0);
 
