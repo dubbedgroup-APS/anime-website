@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 
-// Top navigation link
+// Top nav link
 const linkClassName = ({ isActive }) =>
   `inline-flex items-center whitespace-nowrap rounded-full px-4 py-2 text-sm font-semibold transition ${
     isActive
@@ -17,7 +17,7 @@ const sideLinkClassName = ({ isActive }) =>
       : "text-on-surface-variant hover:bg-primary/10 hover:text-on-surface"
   }`;
 
-// Mobile bottom nav link
+// Mobile nav link
 const mobileLinkClassName = ({ isActive }) =>
   `flex min-w-0 flex-1 flex-col items-center justify-center gap-1 rounded-xl px-1 py-2 text-xs font-medium transition ${
     isActive
@@ -25,7 +25,7 @@ const mobileLinkClassName = ({ isActive }) =>
       : "text-on-surface-variant hover:bg-primary/10 hover:text-on-surface"
   }`;
 
-// Get initials from username
+// Get initials
 const getInitials = (value = "") => {
   const parts = value.trim().split(" ").filter(Boolean);
   if (!parts.length) return "V";
@@ -40,7 +40,8 @@ const AppShell = ({ children }) => {
 
   return (
     <div className="min-h-screen bg-surface text-on-surface font-body">
-      {/* Background effect */}
+
+      {/* Background */}
       <div className="pointer-events-none fixed inset-0 bg-[radial-gradient(circle_at_top_left,rgba(156,72,234,0.15),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(0,90,194,0.18),transparent_40%)]" />
 
       {/* HEADER */}
@@ -67,11 +68,9 @@ const AppShell = ({ children }) => {
 
         {/* Right side */}
         <div className="flex items-center gap-3">
+
           {/* Notification */}
-          <button
-            type="button"
-            className="rounded-full p-2 text-on-surface-variant transition hover:bg-white/10 hover:text-on-surface"
-          >
+          <button className="rounded-full p-2 text-on-surface-variant hover:bg-white/10 hover:text-on-surface">
             <span className="material-symbols-outlined">notifications</span>
           </button>
 
@@ -80,7 +79,7 @@ const AppShell = ({ children }) => {
             {getInitials(user?.name)}
           </div>
 
-          {/* Auth button */}
+          {/* Auth */}
           {isAuthenticated ? (
             <button
               onClick={logout}
@@ -96,11 +95,13 @@ const AppShell = ({ children }) => {
               Login
             </NavLink>
           )}
+
         </div>
       </header>
 
       {/* SIDEBAR */}
       <aside className="fixed left-0 top-0 hidden h-full w-64 flex-col border-r border-white/10 bg-surface/60 pt-28 backdrop-blur-md md:flex">
+
         <nav className="flex flex-col gap-2 px-4">
           <NavLink to="/" end className={sideLinkClassName}>Home</NavLink>
           <NavLink to="/videos" className={sideLinkClassName}>Videos</NavLink>
@@ -125,15 +126,17 @@ const AppShell = ({ children }) => {
             </div>
           </div>
         </div>
+
       </aside>
 
-      {/* MAIN CONTENT */}
+      {/* MAIN */}
       <main className="relative mx-auto min-h-screen max-w-screen-2xl px-6 pb-28 pt-28 md:pl-72 md:pb-20">
         {children}
       </main>
 
       {/* MOBILE NAV */}
       <nav className="fixed bottom-0 left-0 right-0 z-40 flex items-center gap-1 border-t border-white/10 bg-surface/80 px-2 py-2 backdrop-blur-md md:hidden">
+
         <NavLink to="/" end className={mobileLinkClassName}>
           <span className="material-symbols-outlined">home</span>
           Home
@@ -158,7 +161,9 @@ const AppShell = ({ children }) => {
           <span className="material-symbols-outlined">person</span>
           Account
         </NavLink>
+
       </nav>
+
     </div>
   );
 };
