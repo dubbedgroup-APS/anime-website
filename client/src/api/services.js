@@ -35,6 +35,11 @@ export const fetchVideo = async (id) => {
   return data;
 };
 
+export const deleteVideo = async (id) => {
+  const { data } = await apiClient.delete(`/videos/${id}`);
+  return data;
+};
+
 export const markVideoViewed = async (id) => {
   const { data } = await apiClient.post(`/videos/${id}/view`);
   return data;
@@ -60,11 +65,6 @@ export const fetchPlaylists = async () => {
 };
 
 export const createPlaylist = async (payload) => {
-  const { data } = await apiClient.post("/playlists", payload);
-  return data;
-};
-
-export const toggleVideoInPlaylist = async (playlistId, videoId) => {
   const { data } = await apiClient.patch(
     `/playlists/${playlistId}/videos/${videoId}`
   );
