@@ -7,36 +7,11 @@ import UploadPanel from "../components/UploadPanel.jsx";
 import useAuth from "../hooks/useAuth";
 
 const creators = [
-  {
-    name: "Elena Voss",
-    role: "Audio Curator",
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuDdj_5CGobwNhuzGBTl3PqOQjn_dMSf9B31DZylsON5l1gZPOwngJLV2NnvW1wtt-ctpHg3NRxqXnZcOlWXVrZUAMwXFoD-w5k6_rPWfORkSPtISXr5pYr1VooV-WDLVhvrwL9Pq_CFxelkHwLPxltCqG4WAFCSx3iccPbCNeGqMUHQVa0VE1WYGf_W_IljvyixZCbX9lEW1J3rUVRcJhiuQu8aTk5cUFT9qfM28cG7PrVLax3JOmvEL_Y-PamrfEC4zZt4sq8iEfE",
-  },
-  {
-    name: "Marcus Thorne",
-    role: "Studio Director",
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuCcO1YokYAn_vVZGsFtZ6PbdY-d59fXMGRHhJxVw07sh1ITjhwyHAZ4DHK1qWtZCEUtGhNSnhT9SoEwaCx-De31cyMjGo3nrgRHhXqq7yk14orczhUFnaPxLq36AsB4e7ddc-aS9-o4XM_Vx2UiJ0f00KQVJC58iITcNSd62Dcmmab3HiLtLLbORf70bEwY7BIzcB0fGwcEqjlWsTAPLn2pN2ZNNgHYtgk52lbvfiytQj0qMXK96Ez4nUa4bhSt306K2HcAYJ2Es6E",
-  },
-  {
-    name: "Julian Grey",
-    role: "Motion Artist",
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuCLYxA_6TYL3KHSnExpez-kTzE_46GNalXs2mCdvZj2RHe7iCzSMeZsacRI7oYrefGISGphoL57jO_qN3TNj6Nuf_v6-chWjsAEmYVr2v9RhB858JmWrcFmro6-RTAgS4Rq-vxxTSuHxU6LcjG7LmUf2Csaf3GbI4gygz1wPmx9SViq_TlQjiSmXdU8M49grc4A3fvWPn9ukQUZZVNRpasJ-rQa6-67pYua2K-XzUosb6UW2ENGV7r__Nu6o79xrcRnBnCyJwZc0iY",
-  },
-  {
-    name: "Sarah Chen",
-    role: "Visual Editor",
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuC2t8rvaJ5Pt4hfPTyyQUH0aUy6BLL5EB5Ct41JrRhk_1IYIoEll46kP2EZ9MAm1Ai1MRRrF8pzktGXwAIRgrvRkXD0WIT3phjKtY3hIeCeQnXfCh3ahqF2IjrBUe8wbKoIrGlCvQDJjVLQA7IsD-sxfS-SW8-9D27vBM6MGh73-sOFC-sT-mvAbQ04SSFmTgmmFw9fmu3fRvDQSQFyc5lTd483ywVSNPdrhQYo2_HivD1kYgJgsTVE7FsffxMs6W3XKs_weeKiLQE",
-  },
-  {
-    name: "David Park",
-    role: "Sound Designer",
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuC509QmcZuMVHxjm4yRyn6n8bcHDM672-9EbG1a2rQYRibdGag33AKWIoSQsUKuGQ9nlLGkQt3kTDa6dqkd-7CKePPzs-2ZePHSJizp4RnMETaOtlU6ZVp_Kq_DDPaYLE_PDdGPUFzC2eW4uV-WZqoM2CzAzJP_BtsbPA2RRvXJWvC8MPpaicp-zHf7EPT2583jlEUjlghYsm5jHapLohRHQRcIPGdlWAZgWzb9V8Ouc5ReN5p4hovTPJ2fmBw9MLrUq2H5a8WsQS8",
-  },
+  { name: "Elena Voss", role: "Audio Curator" },
+  { name: "Marcus Thorne", role: "Studio Director" },
+  { name: "Julian Grey", role: "Motion Artist" },
+  { name: "Sarah Chen", role: "Visual Editor" },
+  { name: "David Park", role: "Sound Designer" },
 ];
 
 const trending = [
@@ -45,29 +20,33 @@ const trending = [
     label: "MOST VIEWED",
     description:
       "A cinematic journey across the highest peaks of the Himalayas, dubbed with precision.",
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuCSvvV75g9yycyJiFJcOKFhiZm-lxS8cGiP1tNfSU95nlb-nnmf0A4-vGwH4uVemAn7E1n-v5_9WJEMRVR8A06OwDHcS8TzT7BFG0h7PmUvfpYfL3I_A8KvvOCcx81W0ErNaW0DGtd1FSK85v3qADykYINdiRKSEoUiNwlLVCi8RQHHg__iXKGDhbFDU7ZUCvT3lVjWRCdewPIKsPkuJZgUwI2Hw_bHcSn9n37j6zdFuA8O8FRRJWEumAiZ2GN1TbdtLix33JYoAVc",
   },
   {
     title: "Abyssal Dreams",
     description: "Deep sea exploration series",
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuA-KzfUH_4HeD3kQSLJmrt48cnpnjSgl4R2ipuGyvqJ-iha3v-ok6XS_Ay3Dk3d6qLDQdnJdEXfltotqvTxanbpbbDVLZjWYzwi-8a7ziIJgYhaaxNVXAFyGE3DWLNf_GufH8T9D9p1qmXZAOVCxR5r00nidwCl_bCPsfjyYpE5MfgfFOkfoDZAwMiAHBcapz8c0YYl-ToD7Uy1bD_2QgcNVNaOGksfydoaepIkC5V1kz7IyJOIfEDVo4V3N1uD-mQ-FnQR7JTMUag",
   },
-  {
-    title: "Global Flux",
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuCy2UWRPDYPZrTyo-xC-MHjMOdsXuytby2nedNiNd_7A9aZVZC7H31-RIQtDLy2wK_WsHw1wDzsmMEgtiwju5pR0lP0LNbCNn3T2ecDrE2j12rFaijdTR-KLvG2jYj_AkjSPbYaxMi8J7h_vkBM4-5zutHYURDpx_5wSe-EGxesS2kgpECzSH51fPxAw64J7miKM1XNg9UVLRcp5ETNDWHZhPBj_qRwvMzxgN3lxCfJjx0uw3YYVQsYBc8r8tT6b37xT789MAPs4Ss",
-  },
-  {
-    title: "Stellar Drift",
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuD6vvwIDIVfRWoaLfywlezCl0BORfwYziLpqfFc5CP_B7YeafJ44adwzQ4wVj8ogPUywdirSu2kAJlNt4H96msQkRgTcptSW1JThSwqGjkf4Y0aqqvwsgsU12MpBQeNtvGLCNVbqgK6izvTE7YFhJbl2_4MboQS2Lxm0Wntwc_hUjUiRHs5c6ggB4P8xViaQTRqRXJgt8G0CmLxfG2Zf8apUZ8aAXOwmsjmAk2xCtAXYVOKh4KWw2o01TVncS8MzDX9d2Fnw9u3bPI",
-  },
+  { title: "Global Flux" },
+  { title: "Stellar Drift" },
 ];
 
-const fallbackThumb =
-  "https://lh3.googleusercontent.com/aida-public/AB6AXuDjsdhJI7WbNFHM4dr6ieWXSdrOvScNZuNpPwc21TcPdIhuBXgNUJeae22XVhiQ4r7VUvtg5pWnmt6Sy_lkXrboNuuV32giTEvGC9kFQOzimRttpV00mvE4D1ep7gN9a-pbbpFIiLROrWJUgjjkW7qfR9RAaqTkehtqqZkFPRGY6cMYp6623SKIN2TjT5kfvwkNOAV2MT75I41an2fPcH-vm2eGXj8xiMcXX9Ttmd8iC4ETgyq_XGJSSZGwJVw1SeN1RvHU592hDXk";
+const placeholderGradients = [
+  "from-primary/40 via-surface-container-high to-secondary/20",
+  "from-secondary/40 via-surface-container-high to-primary/10",
+  "from-accent/40 via-surface-container-high to-primary/20",
+  "from-primary/30 via-surface-container-high to-sun/30",
+];
+
+const getInitials = (name = "") =>
+  name
+    .split(" ")
+    .filter(Boolean)
+    .map((part) => part[0])
+    .slice(0, 2)
+    .join("")
+    .toUpperCase();
+
+const pickGradient = (seed) =>
+  placeholderGradients[seed % placeholderGradients.length];
 
 const HomePage = () => {
   const { isAuthenticated, user } = useAuth();
@@ -99,15 +78,8 @@ const HomePage = () => {
 
   return (
     <div className="space-y-20">
-      <section className="relative min-h-[520px] overflow-hidden rounded-3xl">
-        <div className="absolute inset-0">
-          <img
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFBn8HVI2sFWSa3Y4AqME_v5A2H0kc3AvakH_hHQ-YWc4jtmJMhYxUP96cTC6lTpSNoi5NbIhVt5Ga77A_QVJ-IGKERnHO2DTQ9X_phI4Za0c7WyrPuF3VynQoZJxUdxYpuUReq1oQVEpA0Kdqbe4dR3L6a9-O0dMboGJ8whks1eDT-N0ojAnWZDiOnjFMtPaRCA-uAW6VrwJU9D45OYXomoAX8Gn_3KExVLiN5x7F07mwQ8ckRMaH66PGPi7VNyqeFzRRbtu5Bzg"
-            alt="Cinematic digital landscape"
-            className="h-full w-full object-cover opacity-40"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-surface via-transparent to-transparent" />
-        </div>
+      <section className="relative min-h-[520px] overflow-hidden rounded-3xl border border-white/10 bg-surface-container-high/60">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(156,72,234,0.25),transparent_45%),radial-gradient(circle_at_bottom_right,rgba(0,90,194,0.25),transparent_45%)]" />
 
         <div className="relative z-10 max-w-3xl space-y-8 p-10 sm:p-12">
           <span className="inline-block rounded-full bg-surface-container-high px-4 py-1 text-[10px] font-bold uppercase tracking-[0.3em] text-primary">
@@ -152,12 +124,8 @@ const HomePage = () => {
               key={creator.name}
               className="group flex min-w-[110px] flex-col items-center gap-3"
             >
-              <div className="h-20 w-20 rounded-full border-2 border-primary/20 p-1 transition-all group-hover:border-primary">
-                <img
-                  src={creator.image}
-                  alt={creator.name}
-                  className="h-full w-full rounded-full object-cover"
-                />
+              <div className="flex h-20 w-20 items-center justify-center rounded-full border-2 border-primary/20 bg-white/5 text-sm font-semibold text-on-surface transition-all group-hover:border-primary">
+                {getInitials(creator.name)}
               </div>
               <span className="text-xs font-medium text-on-surface-variant group-hover:text-primary">
                 {creator.name}
@@ -206,18 +174,22 @@ const HomePage = () => {
         ) : null}
 
         <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-3">
-          {videos.map((video) => (
+          {videos.map((video, index) => (
             <Link
               key={video._id}
               to={`/player/${video._id}`}
               className="group block"
             >
               <div className="glass-card relative mb-4 aspect-video overflow-hidden rounded-xl transition-all duration-300 group-hover:scale-[1.02]">
-                <img
-                  src={resolveMediaUrl(video.thumbnailPath) || fallbackThumb}
-                  alt={video.title}
-                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
-                />
+                {video.thumbnailPath ? (
+                  <img
+                    src={resolveMediaUrl(video.thumbnailPath)}
+                    alt={video.title}
+                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                ) : (
+                  <div className={`h-full w-full bg-gradient-to-br ${pickGradient(index)}`} />
+                )}
                 <div className="absolute inset-0 bg-black/20 opacity-0 transition-opacity group-hover:opacity-100" />
                 <div className="absolute bottom-3 right-3 rounded bg-black/60 px-2 py-1 text-[10px] font-bold text-white">
                   {video.duration || "12:45"}
@@ -249,11 +221,7 @@ const HomePage = () => {
         </h2>
         <div className="grid auto-rows-[250px] grid-cols-1 gap-6 md:grid-cols-4">
           <div className="group relative overflow-hidden rounded-xl glass-card md:col-span-2 md:row-span-2">
-            <img
-              src={trending[0].image}
-              alt={trending[0].title}
-              className="h-full w-full object-cover"
-            />
+            <div className={`h-full w-full bg-gradient-to-br ${pickGradient(0)}`} />
             <div className="absolute inset-0 bg-gradient-to-t from-surface-container-lowest to-transparent opacity-80" />
             <div className="absolute bottom-0 left-0 space-y-4 p-8">
               <span className="inline-block rounded bg-primary px-2 py-1 text-[10px] font-bold text-on-primary-fixed">
@@ -271,11 +239,7 @@ const HomePage = () => {
           </div>
 
           <div className="group relative overflow-hidden rounded-xl glass-card md:col-span-2">
-            <img
-              src={trending[1].image}
-              alt={trending[1].title}
-              className="h-full w-full object-cover"
-            />
+            <div className={`h-full w-full bg-gradient-to-br ${pickGradient(1)}`} />
             <div className="absolute inset-0 bg-black/40 transition-all group-hover:bg-black/20" />
             <div className="absolute bottom-4 left-6">
               <h4 className="text-xl font-headline font-bold text-white">
@@ -285,12 +249,12 @@ const HomePage = () => {
             </div>
           </div>
 
-          {trending.slice(2).map((item) => (
+          {trending.slice(2).map((item, index) => (
             <div
               key={item.title}
               className="group relative overflow-hidden rounded-xl glass-card"
             >
-              <img src={item.image} alt={item.title} className="h-full w-full object-cover" />
+              <div className={`h-full w-full bg-gradient-to-br ${pickGradient(index + 2)}`} />
               <div className="absolute inset-0 bg-black/40" />
               <div className="absolute bottom-4 left-6">
                 <h4 className="text-lg font-headline font-bold text-white">
@@ -312,10 +276,11 @@ const HomePage = () => {
         <p className="font-headline text-lg font-bold text-on-surface">
           Domain Dubbing
         </p>
-        <p>© 2024 Domain Dubbing. Digital Curator.</p>
+        <p>ï¿½ 2024 Domain Dubbing. Digital Curator.</p>
       </footer>
     </div>
   );
 };
 
 export default HomePage;
+
