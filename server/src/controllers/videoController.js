@@ -4,6 +4,7 @@ import { randomUUID } from "crypto";
 import { isCloudinaryEnabled } from "../config/cloudinary.js";
 import { resolveStoredPath } from "../utils/storage.js";
 import {
+  deleteVideoById,
   addVideoToHistory,
   createVideo,
   getAllVideos,
@@ -29,133 +30,7 @@ const formatTags = (tags = "") =>
 
 export const getVideos = async (_request, response, next) => {
   try {
-    const videos = await getAllVideos();
-
-    response.json(videos);
-  } catch (error) {
-    next(error);
-  }
-};
-
-export const getMyVideos = async (request, response, next) => {
-  try {
-    const videos = await getVideosByOwner(request.user._id);
-
-    response.json(videos);
-  } catch (error) {
-    next(error);
-  }
-};
-
-export const getVideoById = async (request, response, next) => {
-  try {
-    const video = await getStoredVideoById(request.params.id);
-
-    if (!video) {
-      return response.status(404).json({
-        message: "Video not found.",
-      });
-    }
-
-    response.json(video);
-  } catch (error) {
-    next(error);
-  }
-};
-
-export const uploadVideo = async (request, response, next) => {
-  try {
-    const { title, description = "", category = "General", tags = "" } =
-      request.body;
-
-    if (!title) {
-      return response.status(400).json({
-        message: "Video title is required.",
-      });
-    }
-
-    const uploadedVideo = request.files?.video?.[0];
-
-    if (!uploadedVideo) {
-      return response.status(400).json({
-        message: "Please choose a video file to upload.",
-      });
-    }
-
-    const thumbnail = request.files?.thumbnail?.[0];
-    let videoPath = "";
-    let thumbnailPath = "";
-    let mimeType = uploadedVideo.mimetype;
-    let size = uploadedVideo.size;
-
-    if (isCloudinaryEnabled()) {
-      const publicId = randomUUID();
-      const uploadedRemoteVideo = await uploadVideoToCloudinary({
-        file: uploadedVideo,
-        publicId,
-      });
-
-      videoPath = uploadedRemoteVideo.secure_url;
-      mimeType = uploadedRemoteVideo.resource_type === "video"
-        ? uploadedVideo.mimetype
-        : uploadedRemoteVideo.format;
-      size = uploadedRemoteVideo.bytes || uploadedVideo.size;
-
-      if (thumbnail) {
-        const uploadedRemoteThumbnail = await uploadImageToCloudinary({
-          file: thumbnail,
-          publicId: `${publicId}-thumb`,
-        });
-        thumbnailPath = uploadedRemoteThumbnail.secure_url;
-      } else {
-        thumbnailPath = buildCloudinaryVideoThumbnail(uploadedRemoteVideo.public_id);
-      }
-    } else {
-      videoPath = await saveBufferLocally({
-        file: uploadedVideo,
-        type: "video",
-      });
-      thumbnailPath = thumbnail
-        ? await saveBufferLocally({
-            file: thumbnail,
-            type: "thumbnail",
-          })
-        : "";
-    }
-
-    const video = await createVideo({
-      title: title.trim(),
-      description: description.trim(),
-      category: category.trim() || "General",
-      tags: formatTags(tags),
-      owner: request.user._id,
-      videoPath,
-      thumbnailPath,
-      mimeType,
-      size,
-    });
-
-    response.status(201).json({
-      message: "Video uploaded successfully.",
-      video,
-    });
-  } catch (error) {
-    next(error);
-  }
-};
-
-export const incrementViewCount = async (request, response, next) => {
-  try {
-    const video = await incrementVideoViews(request.params.id);
-
-    if (!video) {
-      return response.status(404).json({
-        message: "Video not found.",
-      });
-    }
-
-    response.json({
-      views: video.views,
+@@ -159,50 +160,91 @@ export const incrementViewCount = async (request, response, next) => {
     });
   } catch (error) {
     next(error);
@@ -175,6 +50,47 @@ export const saveWatchHistory = async (request, response, next) => {
     response.json({
       message: "Watch history updated.",
       history,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const removeStoredFileIfLocal = (filePath = "") => {
+  if (!filePath || filePath.startsWith("http")) {
+    return;
+  }
+
+  const resolvedPath = resolveStoredPath(filePath);
+
+  if (fs.existsSync(resolvedPath)) {
+    fs.unlinkSync(resolvedPath);
+  }
+};
+
+export const deleteVideo = async (request, response, next) => {
+  try {
+    const existingVideo = await getRawVideoById(request.params.id);
+
+    if (!existingVideo) {
+      return response.status(404).json({
+        message: "Video not found.",
+      });
+    }
+
+    const deletedVideo = await deleteVideoById(request.params.id);
+
+    if (!deletedVideo) {
+      return response.status(404).json({
+        message: "Video not found.",
+      });
+    }
+
+    removeStoredFileIfLocal(deletedVideo.videoPath);
+    removeStoredFileIfLocal(deletedVideo.thumbnailPath);
+
+    response.json({
+      message: "Video deleted successfully.",
     });
   } catch (error) {
     next(error);
@@ -206,40 +122,3 @@ export const streamVideo = async (request, response, next) => {
 
     const { size: fileSize } = fs.statSync(videoPath);
     const rangeHeader = request.headers.range;
-
-    response.setHeader("Accept-Ranges", "bytes");
-    response.setHeader("Cache-Control", "public, max-age=3600");
-    response.setHeader("Content-Type", video.mimeType || "video/mp4");
-
-    if (!rangeHeader) {
-      response.setHeader("Content-Length", fileSize);
-      fs.createReadStream(videoPath).pipe(response);
-      return;
-    }
-
-    const [rangeStart, rangeEnd] = rangeHeader.replace("bytes=", "").split("-");
-    const start = Number(rangeStart) || 0;
-    const requestedEnd = rangeEnd ? Number(rangeEnd) : NaN;
-
-    if (start >= fileSize) {
-      response.status(416).setHeader("Content-Range", `bytes */${fileSize}`);
-      response.end();
-      return;
-    }
-
-    const end = Number.isFinite(requestedEnd)
-      ? Math.min(requestedEnd, fileSize - 1)
-      : Math.min(start + DEFAULT_STREAM_CHUNK_SIZE, fileSize - 1);
-    const contentLength = end - start + 1;
-
-    response.writeHead(206, {
-      "Content-Range": `bytes ${start}-${end}/${fileSize}`,
-      "Content-Length": contentLength,
-      "Content-Type": video.mimeType || "video/mp4",
-    });
-
-    fs.createReadStream(videoPath, { start, end }).pipe(response);
-  } catch (error) {
-    next(error);
-  }
-};
