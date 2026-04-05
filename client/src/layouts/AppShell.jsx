@@ -35,10 +35,10 @@ const AppShell = ({ children }) => {
       <header className="fixed left-0 right-0 top-0 z-50 mx-auto mt-6 flex h-16 w-[95%] max-w-7xl items-center justify-between rounded-full border-t border-white/10 bg-surface/40 px-6 shadow-halo backdrop-blur-md">
         <div className="flex items-center gap-2">
           <NavLink to="/" className="font-headline text-xl font-bold text-gradient">
-            Viode
+            DomainDubber
           </NavLink>
           <span className="hidden text-xs uppercase tracking-[0.3em] text-on-surface-variant md:inline">
-            Streaming Suite
+            DomainDubber
           </span>
         </div>
 
