@@ -130,9 +130,32 @@ const AppShell = ({ children }) => {
         </div>
       </aside>
 
-      <main className="relative mx-auto min-h-screen max-w-screen-2xl px-6 pb-20 pt-28 md:pl-72">
+      <main className="relative mx-auto min-h-screen max-w-screen-2xl px-6 pb-28 pt-28 md:pl-72 md:pb-20">
         {children}
       </main>
+
+      <nav className="fixed bottom-0 left-0 right-0 z-40 flex items-center justify-around border-t border-white/10 bg-surface/80 px-4 py-3 backdrop-blur-md md:hidden">
+        <NavLink to="/" end className={sideLinkClassName}>
+          <span className="material-symbols-outlined">home</span>
+          Home
+        </NavLink>
+        <NavLink to="/videos" className={sideLinkClassName}>
+          <span className="material-symbols-outlined">movie</span>
+          Videos
+        </NavLink>
+        <NavLink to="/playlists" className={sideLinkClassName}>
+          <span className="material-symbols-outlined">subscriptions</span>
+          Playlist
+        </NavLink>
+        <NavLink to="/subscriptions" className={sideLinkClassName}>
+          <span className="material-symbols-outlined">workspace_premium</span>
+          Plans
+        </NavLink>
+        <NavLink to="/account" className={sideLinkClassName}>
+          <span className="material-symbols-outlined">person</span>
+          Account
+        </NavLink>
+      </nav>
     </div>
   );
 };
