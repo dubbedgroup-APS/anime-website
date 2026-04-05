@@ -7,11 +7,11 @@ import UploadPanel from "../components/UploadPanel.jsx";
 import useAuth from "../hooks/useAuth";
 
 const creators = [
-  { name: "Elena Voss", role: "Audio Curator" },
-  { name: "Marcus Thorne", role: "Studio Director" },
-  { name: "Julian Grey", role: "Motion Artist" },
-  { name: "Sarah Chen", role: "Visual Editor" },
-  { name: "David Park", role: "Sound Designer" },
+  { name: "Elena Voss", role: "Audio Curator", imageUrl: "" },
+  { name: "Marcus Thorne", role: "Studio Director", imageUrl: "" },
+  { name: "Julian Grey", role: "Motion Artist", imageUrl: "" },
+  { name: "Sarah Chen", role: "Visual Editor", imageUrl: "" },
+  { name: "David Park", role: "Sound Designer", imageUrl: "" },
 ];
 
 const trending = [
@@ -20,13 +20,15 @@ const trending = [
     label: "MOST VIEWED",
     description:
       "A cinematic journey across the highest peaks of the Himalayas, dubbed with precision.",
+    imageUrl: "",
   },
   {
     title: "Abyssal Dreams",
     description: "Deep sea exploration series",
+    imageUrl: "",
   },
-  { title: "Global Flux" },
-  { title: "Stellar Drift" },
+  { title: "Global Flux", imageUrl: "" },
+  { title: "Stellar Drift", imageUrl: "" },
 ];
 
 const placeholderGradients = [
@@ -124,8 +126,18 @@ const HomePage = () => {
               key={creator.name}
               className="group flex min-w-[110px] flex-col items-center gap-3"
             >
-              <div className="flex h-20 w-20 items-center justify-center rounded-full border-2 border-primary/20 bg-white/5 text-sm font-semibold text-on-surface transition-all group-hover:border-primary">
-                {getInitials(creator.name)}
+              <div className="h-20 w-20 rounded-full border-2 border-primary/20 bg-white/5 transition-all group-hover:border-primary">
+                {creator.imageUrl ? (
+                  <img
+                    src={creator.imageUrl}
+                    alt={creator.name}
+                    className="h-full w-full rounded-full object-cover"
+                  />
+                ) : (
+                  <div className="flex h-full w-full items-center justify-center text-sm font-semibold text-on-surface">
+                    {getInitials(creator.name)}
+                  </div>
+                )}
               </div>
               <span className="text-xs font-medium text-on-surface-variant group-hover:text-primary">
                 {creator.name}
@@ -221,7 +233,15 @@ const HomePage = () => {
         </h2>
         <div className="grid auto-rows-[250px] grid-cols-1 gap-6 md:grid-cols-4">
           <div className="group relative overflow-hidden rounded-xl glass-card md:col-span-2 md:row-span-2">
-            <div className={`h-full w-full bg-gradient-to-br ${pickGradient(0)}`} />
+            {trending[0].imageUrl ? (
+              <img
+                src={trending[0].imageUrl}
+                alt={trending[0].title}
+                className="h-full w-full object-cover"
+              />
+            ) : (
+              <div className={`h-full w-full bg-gradient-to-br ${pickGradient(0)}`} />
+            )}
             <div className="absolute inset-0 bg-gradient-to-t from-surface-container-lowest to-transparent opacity-80" />
             <div className="absolute bottom-0 left-0 space-y-4 p-8">
               <span className="inline-block rounded bg-primary px-2 py-1 text-[10px] font-bold text-on-primary-fixed">
@@ -239,7 +259,15 @@ const HomePage = () => {
           </div>
 
           <div className="group relative overflow-hidden rounded-xl glass-card md:col-span-2">
-            <div className={`h-full w-full bg-gradient-to-br ${pickGradient(1)}`} />
+            {trending[1].imageUrl ? (
+              <img
+                src={trending[1].imageUrl}
+                alt={trending[1].title}
+                className="h-full w-full object-cover"
+              />
+            ) : (
+              <div className={`h-full w-full bg-gradient-to-br ${pickGradient(1)}`} />
+            )}
             <div className="absolute inset-0 bg-black/40 transition-all group-hover:bg-black/20" />
             <div className="absolute bottom-4 left-6">
               <h4 className="text-xl font-headline font-bold text-white">
@@ -254,7 +282,15 @@ const HomePage = () => {
               key={item.title}
               className="group relative overflow-hidden rounded-xl glass-card"
             >
-              <div className={`h-full w-full bg-gradient-to-br ${pickGradient(index + 2)}`} />
+              {item.imageUrl ? (
+                <img
+                  src={item.imageUrl}
+                  alt={item.title}
+                  className="h-full w-full object-cover"
+                />
+              ) : (
+                <div className={`h-full w-full bg-gradient-to-br ${pickGradient(index + 2)}`} />
+              )}
               <div className="absolute inset-0 bg-black/40" />
               <div className="absolute bottom-4 left-6">
                 <h4 className="text-lg font-headline font-bold text-white">
@@ -283,4 +319,3 @@ const HomePage = () => {
 };
 
 export default HomePage;
-
