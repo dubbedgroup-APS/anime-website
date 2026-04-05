@@ -12,6 +12,8 @@ const defaultData = {
   playlists: [],
 };
 
+let resetApplied = false;
+
 const sortByNewest = (items) =>
   [...items].sort(
     (left, right) =>
@@ -29,6 +31,10 @@ export const ensureDataFile = async () => {
 
 const readData = async () => {
   await ensureDataFile();
+  if (process.env.RESET_DATA_ON_START === "true" && !resetApplied) {
+    await fs.writeFile(dataFilePath, JSON.stringify(defaultData, null, 2));
+    resetApplied = true;
+  }
   const raw = await fs.readFile(dataFilePath, "utf8");
   return raw ? JSON.parse(raw) : { ...defaultData };
 };
