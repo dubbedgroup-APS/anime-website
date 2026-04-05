@@ -235,6 +235,37 @@ export const createVideo = async (payload) => {
   return enrichVideo(video, data.users);
 };
 
+export const deleteVideoById = async (videoId) => {
+  const data = await readData();
+  const videoIndex = data.videos.findIndex((item) => item._id === videoId);
+
+  if (videoIndex === -1) {
+    return null;
+  }
+
+  const [deletedVideo] = data.videos.splice(videoIndex, 1);
+
+  data.playlists.forEach((playlist) => {
+    if (playlist.videos.includes(videoId)) {
+      playlist.videos = playlist.videos.filter((item) => item !== videoId);
+      playlist.updatedAt = nowIso();
+    }
+  });
+
+  data.users.forEach((user) => {
+    const history = Array.isArray(user.history) ? user.history : [];
+    const filteredHistory = history.filter((entry) => entry.videoId !== videoId);
+
+    if (filteredHistory.length !== history.length) {
+      user.history = filteredHistory;
+      user.updatedAt = nowIso();
+    }
+  });
+
+  await writeData(data);
+  return deletedVideo;
+};
+
 export const incrementVideoViews = async (videoId) => {
   const data = await readData();
   const video = data.videos.find((item) => item._id === videoId);
